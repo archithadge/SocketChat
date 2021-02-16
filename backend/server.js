@@ -1,5 +1,5 @@
 /*
-Validation remaining 
+Validation remaining(Chatroom+user) 
 */
 require('dotenv').config();
 const mongoose=require('mongoose');
@@ -20,6 +20,12 @@ const app=require('./app');
 
 
 
-app.listen(process.env.PORT,()=>{
+const server=app.listen(process.env.PORT,()=>{
     console.log("Server started at port "+process.env.PORT);
+})
+
+const io=require('socket.io')(server);
+
+io.use((socket,next)=>{
+    const token=socket.handshake.query.token;
 })
