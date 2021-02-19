@@ -26,6 +26,6 @@ const server=app.listen(process.env.PORT,()=>{
 
 const io=require('socket.io')(server);
 
-io.use((socket,next)=>{
+io.use(async (socket,next)=>{
     const token=socket.handshake.query.token;
 })
