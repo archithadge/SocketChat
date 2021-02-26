@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 class LoginPage extends Component {
     render() {
@@ -16,7 +17,8 @@ class LoginPage extends Component {
             }).then((response)=>{
                 console.log(response.data);
                 localStorage.setItem("Token",response.data.token);
-                // this.props.history.push('/dashboard');
+                this.props.setupSocket();
+                this.props.history.push('/dashboard');
             }).catch((err)=>{
                 console.log(err);
             })
@@ -33,4 +35,4 @@ class LoginPage extends Component {
     }
 }
 
-export default LoginPage;
+export default withRouter(LoginPage);

@@ -13,7 +13,7 @@ const messageSchema=new mongo.Schema({
     },
     message:{
         type:String,
-        required:"Message is required"
+        required:"Message is z"
     }
 });
 
