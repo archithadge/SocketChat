@@ -19,7 +19,8 @@ const ChatroomPage = ({match,socket}) => {
 
     React.useEffect(()=>{
         console.log("Setting up");
-        socket.on('newMessage',(message)=>{
+        socket.once('newMessage',(message)=>{
+            console.log("inside new msg");
             const newMessages=[...messages,message];
             setMessages(newMessages);
         })
@@ -40,6 +41,7 @@ const ChatroomPage = ({match,socket}) => {
             })
         }
     },[])
+    
     // const socket=io('http://localhost:8000',{
     //     query:{
     //         token=localStorage.getItem("Token")

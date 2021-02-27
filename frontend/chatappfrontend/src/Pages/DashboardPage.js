@@ -1,46 +1,58 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-const DashboardPage = () => {
-    const [chatrooms,setChatrooms]=React.useState([]);
-    const inputRef=React.useRef();
+const DashboardPage = (props) => {
+    const [chatrooms, setChatrooms] = React.useState([]);
+    const inputRef = React.useRef();
+    const logoutRef = React.useRef();
 
-    const getChatrooms=()=>{
-        axios.get('http://localhost:8000/chatroom',{
-            headers:{
-                Authorization:"Bearer "+localStorage.getItem("Token")
+    const getChatrooms = () => {
+        axios.get('http://localhost:8000/chatroom', {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("Token")
             }
-        }).then((response)=>{
+        }).then((response) => {
             console.log(localStorage.getItem("Token"));
             console.log(response.data);
             setChatrooms(response.data);
-        }).catch((err)=>{
+        }).catch((err) => {
             // console.log(err.response);
             console.log(localStorage.getItem("Token"));
-            setTimeout(getChatrooms,10000);
+            setTimeout(getChatrooms, 10000);
         })
     }
 
-    const createChatroom=()=>{
+    const createChatroom = () => {
         console.log('Creating chatroom')
-        axios.post('http://localhost:8000/chatroom',{name:inputRef.current.value},{headers:{Authorization:"Bearer "+localStorage.getItem("Token")}})
+        axios.post('http://localhost:8000/chatroom',
+            { name: inputRef.current.value },
+            { headers: { Authorization: "Bearer " + localStorage.getItem("Token") } }).then(response=>{
+                // props.history.push('/dashboard');
+                window.location.reload();
+            })
     }
 
-    React.useEffect(()=>{
+    const logout = () => {
+        localStorage.removeItem('Token');
+        props.history.push('/login');
+    }
+
+    React.useEffect(() => {
         getChatrooms();
-    },[])
+    }, [])
     return (
         <div>
-            <input type="text" name="chatroomName" id="chatroomName" ref={inputRef}/>
+            <input type="text" name="chatroomName" id="chatroomName" ref={inputRef} />
             <button onClick={createChatroom}>Create chatroom</button>
-            {chatrooms.map(chatroom=>(
+            {chatrooms.map(chatroom => (
                 <div key={chatroom._id} >Name is {chatroom.name}
-                <Link to={"/chatroom/"+chatroom._id}>Join</Link>
+                    <Link to={"/chatroom/" + chatroom._id}>Join</Link>
                 </div>
             ))}
+            <button ref={logoutRef} onClick={logout}>Logout</button>
         </div>
     );
 };
 
-export default DashboardPage;
+export default withRouter(DashboardPage);
