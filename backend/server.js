@@ -64,15 +64,16 @@ io.on('connection',(socket)=>{
     })
 
     socket.on('chatroomMessage',async ({chatroomId,message})=>{
-        console.log('message arrived',message);
+        console.log('message arrived',message,"from",socket.userId);
         const user=await User.findOne({_id:socket.userId});
+        console.log("await",user);
         const msg=new Message({
             chatroom:chatroomId,
             user:socket.userId,
             message:message
         })
         io.to(chatroomId).emit('newMessage',{
-            message,
+            message:message,
             name:user.name,
             userId:socket.userId,
         })
