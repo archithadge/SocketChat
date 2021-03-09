@@ -1,3 +1,10 @@
 .messageBody{
     border: 1px solid black;
+    margin-bottom: 2px;
+    background-color: cadetblue;
+}
+
+.messages{
+    overflow-y: scroll;
+    height: 500px;
 }
