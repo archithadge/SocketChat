@@ -1,7 +1,13 @@
-.messageBody{
+.ownMessageBody{
     border: 1px solid black;
     margin-bottom: 2px;
     background-color: cadetblue;
+}
+
+.otherMessageBody{
+    border: 1px solid black;
+    margin-bottom: 2px;
+    background-color: rgb(7, 194, 7);
 }
 
 .messages{

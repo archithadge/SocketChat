@@ -3,7 +3,7 @@ import './styles.css'
 
 const Message = (props) => {
     return (
-        <div className="messageBody">
+        <div className={props.Class}>
             <div>{props.user}</div>
             <div>{props.msg}</div>
             {/* <div>Time</div> */}

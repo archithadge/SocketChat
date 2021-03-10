@@ -2,12 +2,15 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
+import {useJwt} from 'react-jwt'
 import Message from './Message.js';
 
 const ChatroomPage = ({ match, socket }) => {
     const chatroomId = match.params.id;
     const [messages, setMessages] = React.useState([]);
     const [messagesFromDB, setMessagesDB] = React.useState([]);
+    // const [token, setToken] = React.useState(null);
+    const { decodedToken, isExpired } = useJwt(localStorage.getItem('Token'));
     const messageRef = React.useRef();
 
     const getMessagesFromDB = () => {
@@ -30,22 +33,28 @@ const ChatroomPage = ({ match, socket }) => {
         console.log("Messages", messages);
 
         if (socket) {
+            console.log('Socket exists');
             socket.emit('chatroomMessage', {
-                chatroomId,
+                chatroomId:chatroomId,
                 message: messageRef.current.value
             })
         }
     }
 
-    React.useEffect(() => {
-        console.log("Setting up");
+    React.useEffect(()=>{
         getMessagesFromDB();
+    },[]);
+
+    React.useEffect(() => {
+        // console.log("Setting up",decodedToken);
+        console.log("UID",localStorage.getItem('uid'))
+        // getMessagesFromDB();
         socket.once('newMessage', (message) => {
             console.log("inside new msg");
             const newMessages = [...messages, message];
             setMessages(newMessages);
         })
-    }, [])
+    })
     React.useEffect(() => {
         socket.emit('joinRoom', {
             chatroomId
@@ -77,13 +86,13 @@ const ChatroomPage = ({ match, socket }) => {
             <div>
                 {messagesFromDB.map((message, i) => (
                     // <div key={i}>{message.name}:---{message.message}</div>
-                    <Message key={i} user={message._id} msg={message.message}></Message>
+                    <Message key={i} Class={localStorage.getItem('uid')==message.user?"ownMessageBody":"otherMessageBody"} user={message.user} msg={message.message}></Message>
                 ))}
             </div>
             <div>
                 {messages.map((message, i) => (
                     // <div key={i}>{message.name}:---{message.message}</div>
-                    <Message key={i} user={message.userId} msg={message.message}></Message>
+                    <Message key={i} Class={localStorage.getItem('uid')==message.userId?"ownMessageBody":"otherMessageBody"} user={message.userId} msg={message.message}></Message>
                 ))}
             </div>
             </div>
