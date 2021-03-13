@@ -75,7 +75,7 @@ io.on('connection',(socket)=>{
         io.to(chatroomId).emit('newMessage',{
             message:message,
             name:user.name,
-            userId:socket.userId,
+            userId:user._id,
         })
         await msg.save();
     })

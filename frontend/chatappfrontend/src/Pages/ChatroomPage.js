@@ -12,6 +12,7 @@ const ChatroomPage = ({ match, socket }) => {
     // const [token, setToken] = React.useState(null);
     const { decodedToken, isExpired } = useJwt(localStorage.getItem('Token'));
     const messageRef = React.useRef();
+    const messagesRef = React.useRef();
 
     const getMessagesFromDB = () => {
         axios.post('http://localhost:8000/chatroom/messages', {
@@ -43,6 +44,12 @@ const ChatroomPage = ({ match, socket }) => {
 
     React.useEffect(()=>{
         getMessagesFromDB();
+        
+    },[]);
+
+    React.useEffect(()=>{
+        var element = document.getElementById("messages");
+            element.scrollTop = element.scrollHeight;
     },[]);
 
     React.useEffect(() => {
@@ -53,6 +60,8 @@ const ChatroomPage = ({ match, socket }) => {
             console.log("inside new msg");
             const newMessages = [...messages, message];
             setMessages(newMessages);
+            var element = document.getElementById("messages");
+            element.scrollTop = element.scrollHeight;
         })
     })
     React.useEffect(() => {
@@ -82,7 +91,7 @@ const ChatroomPage = ({ match, socket }) => {
             Chatroom Page
             
             {/* <button onClick={getMessagesFromDB}>Test</button> */}
-            <div className='messages'>
+            <div className='messages' id="messages">
             <div>
                 {messagesFromDB.map((message, i) => (
                     // <div key={i}>{message.name}:---{message.message}</div>
@@ -98,7 +107,7 @@ const ChatroomPage = ({ match, socket }) => {
             </div>
             <div>
             <input type='text' ref={messageRef}></input>
-            <button onClick={sendMessage} ></button>
+            <button onClick={sendMessage} >Send</button>
             </div>
         </div>
     );

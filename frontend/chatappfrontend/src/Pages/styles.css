@@ -1,16 +1,28 @@
 .ownMessageBody{
-    border: 1px solid black;
-    margin-bottom: 2px;
-    background-color: cadetblue;
+    border: 3px solid black;
+    margin-bottom: 5px;
+    background-color: rgb(57, 224, 24);
+    /* width: 200px; */
+    /* margin-left: 400px; */
+    /* display: inline-block; */
+    clear: both;
+    float: right;
+    border-radius: 5%;
 }
 
 .otherMessageBody{
-    border: 1px solid black;
-    margin-bottom: 2px;
-    background-color: rgb(7, 194, 7);
+    border: 3px solid black;
+    margin-bottom: 5px;
+    background-color: rgb(194, 7, 38);
+    /* display: inline-block; */
+    /* width: 200px; */
+    clear: both;
+    float: left;
+    border-radius: 5%;
 }
 
 .messages{
     overflow-y: scroll;
     height: 500px;
+    background-image: url('https://picsum.photos/1366/500');
 }

@@ -35,6 +35,7 @@ const DashboardPage = (props) => {
 
     const logout = () => {
         localStorage.removeItem('Token');
+        localStorage.removeItem('uid');
         props.history.push('/login');
     }
 
