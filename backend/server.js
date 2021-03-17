@@ -55,18 +55,17 @@ io.on('connection',(socket)=>{
 
     socket.on('joinRoom',({chatroomId})=>{
         socket.join(chatroomId);
-        console.log("User has joined chatroom "+chatroomId);
+        console.log(socket.userId+" has joined chatroom "+chatroomId);
     })
 
     socket.on('leaveRoom',({chatroomId})=>{
         socket.leave(chatroomId);
-        console.log("User has left chatroom "+chatroomId);
+        console.log(socket.userId+" has left chatroom "+chatroomId);
     })
 
     socket.on('chatroomMessage',async ({chatroomId,message})=>{
-        console.log('message arrived',message,"from",socket.userId);
+        console.log('Message arrived< ',message," >from ",socket.userId);
         const user=await User.findOne({_id:socket.userId});
-        // console.log("await",user);
         const msg=new Message({
             chatroom:chatroomId,
             user:socket.userId,

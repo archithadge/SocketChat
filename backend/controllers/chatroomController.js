@@ -4,8 +4,6 @@ const Message=mongoose.model('Message');
 
 exports.createChatroom=async (req,res)=>{
     const {name}=req.body;
-    console.log("chatroomcontoller-->",req.payload)
-
     const chatroomExists=await Chatroom.findOne({name});
     if(chatroomExists) throw "Already exists..!";
     const chatroom=new Chatroom({
@@ -26,8 +24,7 @@ exports.getAllChatrooms=async (req,res)=>{
 
 exports.getChatroomMessages=async (req,res)=>{
     const chatroomID=req.body.chatroomId;
-    console.log("Getmsgs",chatroomID);
+    console.log("Msg request to get messages of chatroom ",chatroomID);
     const msgs=await Message.find({chatroom:chatroomID});
-    console.log(msgs);
     res.json(msgs);
 }
