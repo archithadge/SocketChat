@@ -1,11 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
+import  Button  from 'react-bootstrap/Button';
+import  Spinner  from 'react-bootstrap/Spinner';
 
 const DashboardPage = (props) => {
     const [chatrooms, setChatrooms] = React.useState([]);
     const inputRef = React.useRef();
     const logoutRef = React.useRef();
+    const [bol,setbol]=React.useState(false);
+
+    function chatMap(chatrooms){
+        return chatrooms.map(chatroom => (
+            <div key={chatroom._id} >Name is {chatroom.name}
+                <Link to={"/chatroom/" + chatroom._id}>Join</Link>
+            </div>
+        ))
+    }
 
     const getChatrooms = () => {
         axios.get('http://localhost:8000/chatroom', {
@@ -13,6 +24,7 @@ const DashboardPage = (props) => {
                 Authorization: "Bearer " + localStorage.getItem("Token")
             }
         }).then((response) => {
+            setbol(true);
             console.log(localStorage.getItem("Token"));
             console.log(response.data);
             setChatrooms(response.data);
@@ -48,12 +60,13 @@ const DashboardPage = (props) => {
         <div>
             <input type="text" name="chatroomName" id="chatroomName" ref={inputRef} />
             <button onClick={createChatroom}>Create chatroom</button>
-            {chatrooms.map(chatroom => (
-                <div key={chatroom._id} >Name is {chatroom.name}
-                    <Link to={"/chatroom/" + chatroom._id}>Join</Link>
-                </div>
-            ))}
+            <div>{bol?chatMap(chatrooms):<Spinner animation="border" role="status">
+  <span className="sr-only">Loading...</span>
+</Spinner>}
+            </div>
+            
             <button ref={logoutRef} onClick={logout}>Logout</button>
+            <Button variant="primary">Btn</Button>
         </div>
     );
 };

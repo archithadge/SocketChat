@@ -45,12 +45,18 @@ io.use(async (socket,next)=>{
     }
 });
 
+var l=[];
+
 io.on('connection',(socket)=>{
     // const token=socket.handshake.query.token;
-    console.log("Connected "+socket.userId);
+
+    // console.log("All sockets->",io.sockets.sockets)
+    l.push(socket.id);
+    console.log("All sockets ",l);
+    console.log("Connected "+socket.id);
 
     socket.on('disconnect',()=>{
-        console.log("Disconnected "+socket.userId);
+        console.log("Disconnected "+socket.id);
     })
 
     socket.on('joinRoom',({chatroomId})=>{
