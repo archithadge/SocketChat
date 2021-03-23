@@ -6,6 +6,7 @@ import  Spinner  from 'react-bootstrap/Spinner';
 
 const DashboardPage = (props) => {
     const [chatrooms, setChatrooms] = React.useState([]);
+    const [users, setUsers] = React.useState([]);
     const inputRef = React.useRef();
     const logoutRef = React.useRef();
     const [bol,setbol]=React.useState(false);
@@ -16,6 +17,28 @@ const DashboardPage = (props) => {
                 <Link to={"/chatroom/" + chatroom._id}>Join</Link>
             </div>
         ))
+    }
+
+    function userMap(users){
+        return users.map(user => (
+            <div key={user._id} >Name is {user.name}
+                {/* <Link to={"/chatroom/" + user._id}>Join</Link> */}
+                <br></br>Ikde kaam suru aahe
+            </div>
+        ))
+    }
+
+    const getUsers=()=>{
+        axios.get('http://localhost:8000/user/users',{
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("Token")
+            }
+        }).then(response=>{
+            setUsers(response.data);
+            console.log("Users-->",response.data);
+        }).catch(err=>{
+            setTimeout(getUsers,10000);
+        })
     }
 
     const getChatrooms = () => {
@@ -54,7 +77,9 @@ const DashboardPage = (props) => {
     }
 
     React.useEffect(() => {
+        console.log(props.socket);
         getChatrooms();
+        getUsers();
     }, [])
     return (
         <div>
@@ -64,6 +89,11 @@ const DashboardPage = (props) => {
   <span className="sr-only">Loading...</span>
 </Spinner>}
             </div>
+
+            {/* <div>{bol?userMap(users):<Spinner animation="border" role="status">
+  <span className="sr-only">Loading...</span>
+</Spinner>}
+            </div> */}
             
             <button ref={logoutRef} onClick={logout}>Logout</button>
             <Button variant="primary">Btn</Button>
