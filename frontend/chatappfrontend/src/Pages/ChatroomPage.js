@@ -5,7 +5,8 @@ import axios from 'axios';
 import {useJwt} from 'react-jwt'
 import Message from './Message.js';
 import useSound from 'use-sound';
-import boopSfx from '../Sounds/whatsapp.mp3';
+import boopSfx1 from '../Sounds/recieve.mp3';
+import boopSfx2 from '../Sounds/send.mp3';
 
 
 const ChatroomPage = ({ match, socket }) => {
@@ -16,7 +17,8 @@ const ChatroomPage = ({ match, socket }) => {
     const { decodedToken, isExpired } = useJwt(localStorage.getItem('Token'));
     const messageRef = React.useRef();
     const messagesRef = React.useRef();
-    const [play] = useSound(boopSfx);
+    const [recieve] = useSound(boopSfx1);
+    const [send] = useSound(boopSfx2);
 
     const getMessagesFromDB = () => {
         axios.post('http://localhost:8000/chatroom/messages', {
@@ -58,10 +60,14 @@ const ChatroomPage = ({ match, socket }) => {
 
     React.useEffect(() => {
         // console.log("Setting up",decodedToken);
-        console.log("UID",localStorage.getItem('uid'))
+        console.log("UID socket",localStorage.getItem('uid'))
         // getMessagesFromDB();
         socket.once('newMessage', (message) => {
-            play();
+            if(message.userId==localStorage.getItem('uid')){
+                send();
+            }else{
+                recieve();
+            }
             console.log("inside new msg");
             const newMessages = [...messages, message];
             setMessages(newMessages);

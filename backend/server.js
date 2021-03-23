@@ -56,6 +56,7 @@ io.on('connection',(socket)=>{
     console.log("Connected "+socket.id);
 
     socket.on('disconnect',()=>{
+        socket.disconnect();
         console.log("Disconnected "+socket.id);
     })
 
