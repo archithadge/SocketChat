@@ -77,7 +77,6 @@ const DashboardPage = (props) => {
     }
 
     React.useEffect(() => {
-        console.log(props.socket);
         getChatrooms();
         getUsers();
     }, [])
