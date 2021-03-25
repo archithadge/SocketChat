@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useContext, useCallback, useEffect} from 'react';
+import {SocketContext} from '../Services/Socket';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
@@ -9,7 +10,8 @@ import boopSfx1 from '../Sounds/recieve.mp3';
 import boopSfx2 from '../Sounds/send.mp3';
 
 
-const ChatroomPage = ({ match, socket }) => {
+const ChatroomPage = ({ match }) => {
+    const socket = useContext(SocketContext);
     const chatroomId = match.params.id;
     const [messages, setMessages] = React.useState([]);
     const [messagesFromDB, setMessagesDB] = React.useState([]);

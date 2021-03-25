@@ -45,18 +45,22 @@ io.use(async (socket,next)=>{
     }
 });
 
-var l=[];
+var c=0;
 
 io.on('connection',(socket)=>{
     // const token=socket.handshake.query.token;
 
     // console.log("All sockets->",io.sockets.sockets)
-    l.push(socket.id);
-    console.log("All sockets ",l);
+    // l.push(socket.id);
+    // console.log("All sockets ",l);
+    c=c+1;
+    console.log('c',c);
     console.log("Connected "+socket.id);
 
     socket.on('disconnect',()=>{
         socket.disconnect();
+        c=c-1;
+    console.log('c',c);
         console.log("Disconnected "+socket.id);
     })
 

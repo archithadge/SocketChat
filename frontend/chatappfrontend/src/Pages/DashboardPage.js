@@ -14,7 +14,7 @@ const DashboardPage = (props) => {
     function chatMap(chatrooms){
         return chatrooms.map(chatroom => (
             <div key={chatroom._id} >Name is {chatroom.name}
-                <Link to={"/chatroom/" + chatroom._id}>Join</Link>
+                <a href={"/chatroom/" + chatroom._id}>Join</a>
             </div>
         ))
     }
@@ -71,8 +71,8 @@ const DashboardPage = (props) => {
     const logout = () => {
         localStorage.removeItem('Token');
         localStorage.removeItem('uid');
-        props.socket.off();
-        props.socket.disconnect();
+        // props.socket.off();
+        // props.socket.disconnect();
         props.history.push('/login');
     }
 
