@@ -15,7 +15,8 @@ mongoose.connection.once('open',(err)=>{
 
 require('./models/User');
 require('./models/Chatroom');
-require('./models/Message');
+require('./models/ChatroomMessage');
+require('./models/PersonalMessage');
 const app=require('./app');
 
 
@@ -31,8 +32,9 @@ const io=require('socket.io')(server,{
     }
   });
 const jwt=require('jwt-then');
-const Message=mongoose.model('Message');
+const ChatroomMessage=mongoose.model('ChatroomMessage');
 const User=mongoose.model('User');
+const PersonalMessage=mongoose.model('PersonalMessage');
 
 io.use(async (socket,next)=>{
     try{
@@ -77,12 +79,29 @@ io.on('connection',(socket)=>{
     socket.on('chatroomMessage',async ({chatroomId,message})=>{
         console.log('Message arrived< ',message," >from ",socket.userId);
         const user=await User.findOne({_id:socket.userId});
-        const msg=new Message({
+        const msg=new ChatroomMessage({
             chatroom:chatroomId,
             user:socket.userId,
             message:message
         })
         io.to(chatroomId).emit('newMessage',{
+            message:message,
+            name:user.name,
+            userId:user._id,
+        })
+        await msg.save();
+    })
+
+    socket.on('personalMessage',async ({receiverId,chatroom,message})=>{
+        console.log('Message arrived< ',message," >from ",socket.userId);
+        const user=await User.findOne({_id:socket.userId});
+        const msg=new PersonalMessage({
+            sender:socket.userId,
+            receiver:receiverId,
+            chatroom:chatroom,
+            message:message
+        })
+        io.to(chatroom).emit('newMessage',{
             message:message,
             name:user.name,
             userId:user._id,

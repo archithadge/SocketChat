@@ -1,6 +1,6 @@
 const mongo=require('mongoose');
 
-const messageSchema=new mongo.Schema({
+const chatroomMessageSchema=new mongo.Schema({
     chatroom:{
         type:mongo.Schema.Types.ObjectId,
         required:"Chatroom is required",
@@ -13,8 +13,8 @@ const messageSchema=new mongo.Schema({
     },
     message:{
         type:String,
-        required:"Message is z"
+        required:"Message is required"
     }
 });
 
-module.exports=mongo.model("Message",messageSchema);
+module.exports=mongo.model("ChatroomMessage",chatroomMessageSchema);

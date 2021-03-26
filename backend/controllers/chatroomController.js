@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 const Chatroom=mongoose.model('Chatroom');
-const Message=mongoose.model('Message');
+const ChatroomMessage=mongoose.model('ChatroomMessage');
 
 exports.createChatroom=async (req,res)=>{
     const {name}=req.body;
@@ -25,6 +25,6 @@ exports.getAllChatrooms=async (req,res)=>{
 exports.getChatroomMessages=async (req,res)=>{
     const chatroomID=req.body.chatroomId;
     console.log("Msg request to get messages of chatroom ",chatroomID);
-    const msgs=await Message.find({chatroom:chatroomID});
+    const msgs=await ChatroomMessage.find({chatroom:chatroomID});
     res.json(msgs);
 }

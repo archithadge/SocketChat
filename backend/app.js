@@ -11,6 +11,7 @@ app.use(require('cors')());
 //Routes
 app.use('/user',require('./routes/user'));
 app.use('/chatroom',require('./routes/chatroom'));
+app.use('/personal',require('./routes/personal'));
 
 //Error handlers
 const errorHandlers=require('./handlers/errorHandlers');

@@ -22,8 +22,8 @@ const DashboardPage = (props) => {
     function userMap(users){
         return users.map(user => (
             <div key={user._id} >Name is {user.name}
-                {/* <Link to={"/chatroom/" + user._id}>Join</Link> */}
-                <br></br>Ikde kaam suru aahe
+                <a href={"/personal/" + user._id}>Chat</a>
+                
             </div>
         ))
     }
@@ -84,15 +84,18 @@ const DashboardPage = (props) => {
         <div>
             <input type="text" name="chatroomName" id="chatroomName" ref={inputRef} />
             <button onClick={createChatroom}>Create chatroom</button>
+            <div>Chatrooms</div>
             <div>{bol?chatMap(chatrooms):<Spinner animation="border" role="status">
   <span className="sr-only">Loading...</span>
 </Spinner>}
             </div>
 
-            {/* <div>{bol?userMap(users):<Spinner animation="border" role="status">
+            <div>Users</div>
+
+            <div>{bol?userMap(users):<Spinner animation="border" role="status">
   <span className="sr-only">Loading...</span>
 </Spinner>}
-            </div> */}
+            </div>
             
             <button ref={logoutRef} onClick={logout}>Logout</button>
             <Button variant="primary">Btn</Button>
