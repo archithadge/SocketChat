@@ -59,6 +59,7 @@ const ChatroomPage = ({ match, socket }) => {
     },[]);
 
     React.useEffect(() => {
+        if(!socket)return;
         // console.log("Setting up",decodedToken);
         console.log("UID socket",localStorage.getItem('uid'))
         // getMessagesFromDB();
@@ -76,6 +77,7 @@ const ChatroomPage = ({ match, socket }) => {
         })
     })
     React.useEffect(() => {
+        if(!socket)return;
         socket.emit('joinRoom', {
             chatroomId
         })
@@ -86,11 +88,12 @@ const ChatroomPage = ({ match, socket }) => {
         // })
 
         return () => {
+            if(!socket)return;
             socket.emit('leaveRoom', {
                 chatroomId
             })
         }
-    }, [])
+    }, [socket])
 
     // const socket=io('http://localhost:8000',{
     //     query:{
