@@ -14,7 +14,7 @@ const DashboardPage = (props) => {
     function chatMap(chatrooms){
         return chatrooms.map(chatroom => (
             <div key={chatroom._id} >Name is {chatroom.name}
-                <a href={"/chatroom/" + chatroom._id}>Join</a>
+                <Link to={"/chatroom/" + chatroom._id}>Join</Link>
             </div>
         ))
     }
@@ -22,7 +22,7 @@ const DashboardPage = (props) => {
     function userMap(users){
         return users.map(user => (
             <div key={user._id} >Name is {user.name}
-                <a href={"/personal/" + user._id}>Chat</a>
+                <Link to={"/personal/" + user._id}>Chat</Link>
                 
             </div>
         ))
@@ -71,8 +71,8 @@ const DashboardPage = (props) => {
     const logout = () => {
         localStorage.removeItem('Token');
         localStorage.removeItem('uid');
-        // props.socket.off();
-        // props.socket.disconnect();
+        props.socket.off();
+        props.socket.disconnect();
         props.history.push('/login');
     }
 

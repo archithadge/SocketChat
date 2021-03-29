@@ -23,7 +23,7 @@ class LoginPage extends Component {
                 console.log(response.data);
                 localStorage.setItem("Token",response.data.token);
                 localStorage.setItem("uid",response.data.uid);
-                // this.props.setupSocket();
+                this.props.setupSocket();
                 this.props.history.push('/dashboard');
             }).catch((err)=>{
                 console.log(err);

@@ -1,5 +1,4 @@
 import React, {useState, useContext, useCallback, useEffect} from 'react';
-import {SocketContext} from '../Services/Socket';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
@@ -10,8 +9,7 @@ import boopSfx1 from '../Sounds/recieve.mp3';
 import boopSfx2 from '../Sounds/send.mp3';
 
 
-const ChatroomPage = ({ match }) => {
-    const socket = useContext(SocketContext);
+const ChatroomPage = ({ match,socket }) => {
     const chatroomId = match.params.id;
     const [messages, setMessages] = React.useState([]);
     const [messagesFromDB, setMessagesDB] = React.useState([]);
@@ -62,6 +60,7 @@ const ChatroomPage = ({ match }) => {
 
     React.useEffect(() => {
         // console.log("Setting up",decodedToken);
+        if(!socket)return;
         console.log("UID socket",localStorage.getItem('uid'))
         // getMessagesFromDB();
         socket.once('newMessage', (message) => {
@@ -78,6 +77,7 @@ const ChatroomPage = ({ match }) => {
         })
     })
     React.useEffect(() => {
+        if(!socket)return;
         socket.emit('joinRoom', {
             chatroomId
         })
@@ -92,7 +92,7 @@ const ChatroomPage = ({ match }) => {
                 chatroomId
             })
         }
-    }, [])
+    }, [socket])
 
     // const socket=io('http://localhost:8000',{
     //     query:{

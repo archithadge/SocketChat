@@ -1,5 +1,4 @@
 import React, {useState, useContext, useCallback, useEffect} from 'react';
-import {SocketContext} from '../Services/Socket';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
@@ -10,8 +9,7 @@ import boopSfx1 from '../Sounds/recieve.mp3';
 import boopSfx2 from '../Sounds/send.mp3';
 
 
-const PersonalMessagePage = ({ match }) => {
-    const socket = useContext(SocketContext);
+const PersonalMessagePage = ({ match,socket }) => {
     const receiverId = match.params.id;
     const [messages, setMessages] = React.useState([]);
     const [messagesFromDB, setMessagesDB] = React.useState([]);
@@ -70,6 +68,7 @@ const PersonalMessagePage = ({ match }) => {
 
     React.useEffect(() => {
         // console.log("Setting up",decodedToken);
+        if(!socket)return;
         console.log("UID socket",localStorage.getItem('uid'))
         // getMessagesFromDB();
         socket.once('newMessage', (message) => {
@@ -86,6 +85,7 @@ const PersonalMessagePage = ({ match }) => {
         })
     })
     React.useEffect(() => {
+        if(!socket)return;
         socket.emit('joinRoom', {
             chatroomId:generateId(localStorage.getItem('uid'),receiverId)
         })
@@ -100,7 +100,7 @@ const PersonalMessagePage = ({ match }) => {
                 chatroomId:generateId(localStorage.getItem('uid'),receiverId)
             })
         }
-    }, [])
+    }, [socket])
 
     // const socket=io('http://localhost:8000',{
     //     query:{
