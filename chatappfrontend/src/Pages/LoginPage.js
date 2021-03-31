@@ -8,9 +8,17 @@ import  FormControl  from 'react-bootstrap/FormControl';
 import  Button  from 'react-bootstrap/Button';
 
 class LoginPage extends Component {
+    componentDidMount(){
+      if(localStorage.getItem('Token')){
+        this.props.history.push('/dashboard');
+        
+      }
+    }
     render() {
         const emailRef=React.createRef();
         const passwordRef=React.createRef();
+
+  
 
         var loginUser=()=>{
             const email=emailRef.current.value;
