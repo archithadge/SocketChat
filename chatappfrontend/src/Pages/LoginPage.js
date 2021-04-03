@@ -6,6 +6,9 @@ import  Col  from 'react-bootstrap/Col';
 import  InputGroup  from 'react-bootstrap/InputGroup';
 import  FormControl  from 'react-bootstrap/FormControl';
 import  Button  from 'react-bootstrap/Button';
+import 'react-chat-elements/dist/main.css';
+// MessageBox component
+import { ChatItem } from 'react-chat-elements';
 
 class LoginPage extends Component {
     componentDidMount(){
@@ -41,6 +44,14 @@ class LoginPage extends Component {
         return (
             
             <div>
+
+<ChatItem
+    avatar={'https://facebook.github.io/react/img/logo.svg'}
+    alt={'Reactjs'}
+    title={'Facebook'}
+    subtitle={'What are you doing?'}
+    date={new Date()}
+    unread={0} />
                 
   <Form.Group >
     <Form.Label>Email address</Form.Label>
