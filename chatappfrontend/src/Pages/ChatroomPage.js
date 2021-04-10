@@ -7,6 +7,7 @@ import Message from './Message.js';
 import useSound from 'use-sound';
 import boopSfx1 from '../Sounds/recieve.mp3';
 import boopSfx2 from '../Sounds/send.mp3';
+import MessagesComponent from './MessagesComponent';
 
 
 const ChatroomPage = ({ match,socket }) => {
@@ -106,16 +107,11 @@ const ChatroomPage = ({ match,socket }) => {
             {/* <button onClick={getMessagesFromDB}>Test</button> */}
             <div className='messages' id="messages">
             <div>
-                {messagesFromDB.map((message, i) => (
-                    // <div key={i}>{message.name}:---{message.message}</div>
-                    <Message key={i} Class={localStorage.getItem('uid')==message.user?"ownMessageBody":"otherMessageBody"} user={message.user} msg={message.message}></Message>
-                ))}
+            <MessagesComponent messages={messagesFromDB}/>
+                <MessagesComponent messages={messages}/>
             </div>
             <div>
-                {messages.map((message, i) => (
-                    // <div key={i}>{message.name}:---{message.message}</div>
-                    <Message key={i} Class={localStorage.getItem('uid')==message.userId?"ownMessageBody":"otherMessageBody"} user={message.userId} msg={message.message}></Message>
-                ))}
+                
             </div>
             </div>
             <div>

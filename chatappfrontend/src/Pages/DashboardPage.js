@@ -3,6 +3,10 @@ import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
 import  Button  from 'react-bootstrap/Button';
 import  Spinner  from 'react-bootstrap/Spinner';
+import ChatroomsComponent from './ChatroomsComponent';
+import UsersComponent from './UsersComponent';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 const DashboardPage = (props) => {
     const [chatrooms, setChatrooms] = React.useState([]);
@@ -85,17 +89,19 @@ const DashboardPage = (props) => {
             <input type="text" name="chatroomName" id="chatroomName" ref={inputRef} />
             <button onClick={createChatroom}>Create chatroom</button>
             <div>Chatrooms</div>
-            <div>{bol?chatMap(chatrooms):<Spinner animation="border" role="status">
-  <span className="sr-only">Loading...</span>
-</Spinner>}
-            </div>
+            <Container>
+            <Col sm={3}>
+            <ChatroomsComponent chatrooms={chatrooms}/>
+            <UsersComponent users={users}/>
+            </Col>
+            <Col sm={6}>
+            </Col>
+            </Container>
+            
+            
 
             <div>Users</div>
 
-            <div>{bol?userMap(users):<Spinner animation="border" role="status">
-  <span className="sr-only">Loading...</span>
-</Spinner>}
-            </div>
             
             <button ref={logoutRef} onClick={logout}>Logout</button>
             <Button variant="primary">Btn</Button>

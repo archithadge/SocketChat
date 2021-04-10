@@ -8,7 +8,7 @@ const ChatroomsComponent = (props) => {
         <Col>
             {
                 props.messages.map(message=>(
-                    <MessageBox position={localStorage.getItem('uid')==message.user?'right':'left'} text={message.message}/>
+                    <MessageBox position={localStorage.getItem('uid')==message.user || localStorage.getItem('uid')==message.userId || localStorage.getItem('uid')==message.sender?'right':'left'} text={message.message}/>
                 ))
             }
         </Col>

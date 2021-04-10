@@ -4,16 +4,16 @@ import Row from 'react-bootstrap/Row';
 import { ChatItem } from 'react-chat-elements'
 import { Link } from 'react-router-dom';
 
-const ChatroomsComponent = (props) => {
+const UsersComponent = (props) => {
     return (
         <Row>
-            {props.chatrooms.map(chatroom => (
-                <Link to={"/chatroom/" + chatroom._id} key={chatroom._id}>
-                    <ChatItem title={chatroom.name} />
+            {props.users.map(user => (
+                <Link to={"/personal/" + user._id} key={user._id}>
+                    <ChatItem title={user.name} />
                 </Link>
             ))}
         </Row>
     );
 };
 
-export default ChatroomsComponent;
+export default UsersComponent;
