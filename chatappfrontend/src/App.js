@@ -7,6 +7,7 @@ import DashboardPage from './Pages/DashboardPage';
 import IndexPage from './Pages/IndexPage';
 import ChatroomPage from './Pages/ChatroomPage';
 import PersonalMessagePage from './Pages/PersonalMessagePage';
+import MainPage from './Pages/MainPage';
 import io from 'socket.io-client';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
     <Route path="/login" render={()=><LoginPage setupSocket={setupSocket}></LoginPage>} exact></Route>
     <Route path="/register" component={RegisterPage}exact></Route>
     <Route path="/dashboard" render={()=><DashboardPage socket={socket} ></DashboardPage>} exact></Route>
+    <Route path="/main" render={()=><MainPage socket={socket} ></MainPage>} exact></Route>
     <Route path="/chatroom/:id" render={()=><ChatroomPage socket={socket} demo={demo}></ChatroomPage>} exact></Route>
     <Route path="/personal/:id" render={()=><PersonalMessagePage socket={socket} ></PersonalMessagePage>} exact></Route>
   </Switch>
