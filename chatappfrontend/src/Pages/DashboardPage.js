@@ -105,6 +105,7 @@ const DashboardPage = (props) => {
             
             <button ref={logoutRef} onClick={logout}>Logout</button>
             <Button variant="primary">Btn</Button>
+            <Link to='/main/'>MP</Link>
         </div>
     );
 };

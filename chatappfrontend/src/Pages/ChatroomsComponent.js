@@ -3,16 +3,17 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { ChatItem } from 'react-chat-elements'
 import { Link } from 'react-router-dom';
+import './styles2.css'
 
 const ChatroomsComponent = (props) => {
     return (
-        <Row>
+        <div className='main3'>
             {props.chatrooms.map(chatroom => (
-                <Link to={"/chatroom/" + chatroom._id} key={chatroom._id}>
-                    <ChatItem title={chatroom.name} />
-                </Link>
+                
+                    <ChatItem title={chatroom.name} onClick={()=>{props.setChat(chatroom._id,true)}}/>
+                
             ))}
-        </Row>
+        </div>
     );
 };
 

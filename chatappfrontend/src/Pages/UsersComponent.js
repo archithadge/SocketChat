@@ -6,13 +6,13 @@ import { Link } from 'react-router-dom';
 
 const UsersComponent = (props) => {
     return (
-        <Row>
+        <div className='main3'>
             {props.users.map(user => (
-                <Link to={"/personal/" + user._id} key={user._id}>
-                    <ChatItem title={user.name} />
-                </Link>
+                
+                    <ChatItem title={user.name} onClick={()=>{props.setChat(user._id,false)}}/>
+            
             ))}
-        </Row>
+        </div>
     );
 };
 

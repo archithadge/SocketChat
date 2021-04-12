@@ -7,13 +7,13 @@ import { Link } from 'react-router-dom';
 const ChatroomsComponent = (props) => {
     console.log(localStorage.getItem('uid'));
     return (
-        <Col>
+        <div>
             {
                 props.messages.map(message=>(
                     <MessageBox position={(localStorage.getItem('uid')==message.user || localStorage.getItem('uid')==message.userId || localStorage.getItem('uid')==message.sender)&&localStorage.getItem('uid')!=null?'right':'left'} text={message.message}/>
                 ))
             }
-        </Col>
+        </div>
     );
 };
 

@@ -44,14 +44,16 @@ io.use(async (socket, next) => {
         socket.UID = payload.id;
         next();
     } catch (err) {
-
+        
     }
 });
 
 io.on('connection',  (socket) => {
 
-    socket.on('Disconnected', () => {
-        console.log(socket.UID + " disconnected");
+    console.log(socket.id + " connected");
+
+    socket.on('disconnect', () => {
+        console.log(socket.id + " disconnected");
         socket.disconnect();
     })
 
@@ -59,19 +61,35 @@ io.on('connection',  (socket) => {
         socket.join(socket.UID);
         const chatrooms = await Chatroom.find({}, { _id: 1 });
         for(i=0;i<chatrooms.length;i++){
-            socket.join(chatrooms[i]._id);
+            console.log('Initialising sockets...',(chatrooms[i]._id).toString());
+            socket.join(chatrooms[i]._id.toString());
         }
+        
     })
 
-    socket.on('chatroomMessage',async ({chatroomID,message})=>{
+    socket.on('leaveRooms', async () => {
+        console.log('Leave fired')
+        socket.leave(socket.UID);
+        const chatrooms = await Chatroom.find({}, { _id: 1 });
+        for(i=0;i<chatrooms.length;i++){
+            console.log('Leaving rooms...',chatrooms[i]._id);
+            socket.leave(chatrooms[i]._id);
+        }
         
+        
+    })
+
+    socket.on('chatroomMessage',async ({chatroomId,message})=>{
+        
+        console.log(chatroomId,message);
+        console.log(socket.rooms)
         const user=await User.findOne({_id:socket.UID});
         const msg=new ChatroomMessage({
-            chatroom:chatroomID,
+            chatroom:chatroomId,
             user:socket.UID,
             message:message
         })
-        io.to(chatroomID).emit('newMessage',{
+        io.to(chatroomId).emit('newMessage',{
             message:message,
             name:user.name,
             userId:user._id,
@@ -88,7 +106,7 @@ io.on('connection',  (socket) => {
             chatroom:chatroom,
             message:message
         })
-        io.to(receiverId).emit('newMessage',{
+        io.to(socket.UID).to(receiverId).emit('newMessage',{
             message:message,
             name:user.name,
             userId:user._id,

@@ -1,169 +1,145 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
+import { withRouter } from 'react-router-dom';
 import ChatroomsComponent from './ChatroomsComponent';
 import MessagesComponent from './MessagesComponent';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import UsersComponent from './UsersComponent';
+import axios from 'axios';
+import './styles2.css'
 
-const MainPage = ({socket}) => {
+const MainPage = ({ socket }) => {
 
-    const [chatrooms, setChatrooms] = useState([
-        {
-            "_id": "605a2271b9e1476d944b6ebc",
-            "name": "chatroom1",
-            "createdAt": "2021-03-23T17:16:33.850Z",
-            "updatedAt": "2021-03-23T17:16:33.850Z",
-            "__v": 0
-        },
-        {
-            "_id": "605a227eb9e1476d944b6ebd",
-            "name": "chatroom2",
-            "createdAt": "2021-03-23T17:16:46.626Z",
-            "updatedAt": "2021-03-23T17:16:46.626Z",
-            "__v": 0
-        },
-        {
-            "_id": "605e1392c1a22cc0437386ab",
-            "name": "ha ha",
-            "createdAt": "2021-03-26T17:02:10.356Z",
-            "updatedAt": "2021-03-26T17:02:10.356Z",
-            "__v": 0
-        },
-        {
-            "_id": "606605e9dc8c9561ef9509f2",
-            "name": "65",
-            "createdAt": "2021-04-01T17:42:01.132Z",
-            "updatedAt": "2021-04-01T17:42:01.132Z",
-            "__v": 0
-        }
-    ]);
-    const [users, setUsers] = useState([
-        {
-            "_id": "602bc89453f0bcc98cbb2d9b",
-            "name": "archit"
-        },
-        {
-            "_id": "602bceb553f0bcc98cbb2d9c",
-            "name": "a"
-        },
-        {
-            "_id": "60310ffb44aa827ea7a3e010",
-            "name": "aa"
-        },
-        {
-            "_id": "603660a61feb01998bf2f7be",
-            "name": "2"
-        },
-        {
-            "_id": "603661431feb01998bf2f7bf",
-            "name": "10"
-        },
-        {
-            "_id": "60376a1c60f4a65125abdb63",
-            "name": "6"
-        },
-        {
-            "_id": "603a2b1470acc9b020df8237",
-            "name": "aditya"
-        },
-        {
-            "_id": "604a008a474ef1671a043bb4",
-            "name": "feku"
-        },
-        {
-            "_id": "604c8e57ad4cb7befcaef1df",
-            "name": "12"
-        },
-        {
-            "_id": "604c919ead4cb7befcaef1e5",
-            "name": "abc2@gmail.com"
-        },
-        {
-            "_id": "605f050dbb5c8df90fda884a",
-            "name": "shalini"
-        },
-        {
-            "_id": "605f051fbb5c8df90fda884b",
-            "name": "vikas"
-        }
-    ]);
-    const [messages, setMessages] = useState([
-        {
-            "_id": "605f637a5bd36dc91090a1ab",
-            "chatroom": "605a227eb9e1476d944b6ebd",
-            "user": "603660a61feb01998bf2f7be",
-            "message": "hii",
-            "__v": 0
-        },
-        {
-            "_id": "606204de19f16735c350f20a",
-            "chatroom": "605a227eb9e1476d944b6ebd",
-            "user": "603660a61feb01998bf2f7be",
-            "message": "hh",
-            "__v": 0
-        },
-        {
-            "_id": "606eccca79a79a7e672d1703",
-            "chatroom": "605a227eb9e1476d944b6ebd",
-            "user": "603660a61feb01998bf2f7be",
-            "message": "ohhh",
-            "__v": 0
-        }
-    ]);
-    const [messagesFromDB, setMessagesDB] = useState([
-        {
-            "_id": "605f637a5bd36dc91090a1ab",
-            "chatroom": "605a227eb9e1476d944b6ebd",
-            "user": "603660a61feb01998bf2f7be",
-            "message": "hii",
-            "__v": 0
-        },
-        {
-            "_id": "606204de19f16735c350f20a",
-            "chatroom": "605a227eb9e1476d944b6ebd",
-            "user": "603660a61feb01998bf2f7be",
-            "message": "hh",
-            "__v": 0
-        },
-        {
-            "_id": "606eccca79a79a7e672d1703",
-            "chatroom": "605a227eb9e1476d944b6ebd",
-            "user": "603660a61feb01998bf2f7be",
-            "message": "ohhh",
-            "__v": 0
-        }
-    ]);
-    
 
-    // const getUsers=()=>{
-    //     axios.get('http://localhost:8000/user/users',{
-    //         headers: {
-    //             Authorization: "Bearer " + localStorage.getItem("Token")
-    //         }
-    //     }).then(response=>{
-    //         setUsers(response.data);
-    //         console.log("Users-->",response.data);
-    //     }).catch(err=>{
-    //         setTimeout(getUsers,10000);
-    //     })
-    // }
 
-    // const getChatrooms = () => {
-    //     axios.get('http://localhost:8000/chatroom', {
-    //         headers: {
-    //             Authorization: "Bearer " + localStorage.getItem("Token")
-    //         }
-    //     }).then((response) => {
-    //         setbol(true);
-    //         console.log(localStorage.getItem("Token"));
-    //         console.log(response.data);
-    //         setChatrooms(response.data);
-    //     }).catch((err) => {
-    //         // console.log(err.response);
-    //         console.log(localStorage.getItem("Token"));
-    //         setTimeout(getChatrooms, 10000);
-    //     })
-    // }
+    const [ispublic, setPublic] = useState(null);
+    const [currentChat, setCurrentChat] = useState(null);
+    const [chatrooms, setChatrooms] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [messages, setMessages] = useState([]);
+    const [messagesFromDB, setMessagesDB] = useState([]);
+    const messageRef=React.useRef();
+
+    const setChat = (currentChat, ispublic) => {
+        setCurrentChat(currentChat);
+        setPublic(ispublic);
+    }
+
+    const generateId = (id1, id2) => {
+        var elements = [id1, id2];
+        var a = elements.sort((a, b) => a.localeCompare(b));
+        console.log("PM Id", a[0] + a[1]);
+        return a[0] + a[1];
+    }
+
+    const sendMessage = () => {
+        console.log("Messages", messages);
+
+        if (socket) {
+            console.log('Socket exists');
+            socket.emit('chatroomMessage', {
+                chatroomId:currentChat,
+                message: messageRef.current.value
+            })
+        }
+    }
+
+    const sendMessageP = () => {
+        console.log("Messages", messages);
+
+        if (socket) {
+            console.log('Socket exists');
+            socket.emit('personalMessage', {
+                receiverId:currentChat,
+                chatroom:generateId(localStorage.getItem('uid'),currentChat),
+                message: messageRef.current.value
+            })
+        }
+    }
+
+    React.useEffect(() => {
+        // console.log("Setting up",decodedToken);
+        if(!socket)return;
+        // console.log("UID socket",localStorage.getItem('uid'))
+        // getMessagesFromDB();
+        socket.once('newMessage', (message) => {
+            console.log('event');
+            if(message.userId==localStorage.getItem('uid')){
+                // send();
+            }else{
+                // recieve();
+            }
+            console.log("inside new msg");
+            const newMessages = [...messages, message];
+            setMessages(newMessages);
+            // var element = document.getElementById("messages");
+            // element.scrollTop = element.scrollHeight;
+        })
+    })
+
+    const getMessagesFromDBP = () => {
+        axios.post('http://localhost:8000/personal/messages', {
+            chatroomId: generateId(localStorage.getItem('uid'), currentChat)
+        },
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("Token")
+                }
+            }).then((response) => {
+                console.log(response.data);
+                setMessagesDB(response.data);
+            }).catch((error) => {
+                console.log("Error occured ..!", error);
+            })
+    }
+
+    const getMessagesFromDB = () => {
+        axios.post('http://localhost:8000/chatroom/messages', {
+            chatroomId: currentChat
+        },
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("Token")
+                }
+            }).then((response) => {
+                console.log(response.data);
+                setMessagesDB(response.data);
+            }).catch((error) => {
+                console.log("Error occured ..!", error);
+            })
+    }
+
+
+    const getUsers = () => {
+        axios.get('http://localhost:8000/user/users', {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("Token")
+            }
+        }).then(response => {
+            setUsers(response.data);
+            console.log("Users-->", response.data);
+        }).catch(err => {
+            setTimeout(getUsers, 10000);
+        })
+    }
+
+    const getChatrooms = () => {
+        axios.get('http://localhost:8000/chatroom', {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("Token")
+            }
+        }).then((response) => {
+            // setbol(true);
+            console.log(localStorage.getItem("Token"));
+            console.log(response.data);
+            setChatrooms(response.data);
+        }).catch((err) => {
+            // console.log(err.response);
+            console.log(localStorage.getItem("Token"));
+            setTimeout(getChatrooms, 10000);
+        })
+    }
 
     // const createChatroom = () => {
     //     console.log('Creating chatroom')
@@ -175,34 +151,93 @@ const MainPage = ({socket}) => {
     //         })
     // }
 
-    // React.useEffect(()=>{
+    React.useEffect(() => {
+        getChatrooms();
+        getUsers();
 
-    // })
 
-    
+
+    }, [])
+
+    React.useEffect(() => {
+        if (!socket) return;
+        socket.emit('initialize');
+
+
+    }, [socket])
+
+
+
+
+
+
+
+
+
+    React.useEffect(() => {
+        console.log('public ', ispublic, ' currentChat ', currentChat);
+        if (ispublic == true) {
+            getMessagesFromDB();
+        } if (ispublic == false) {
+            getMessagesFromDBP();
+        }
+    }, [currentChat])
 
 
     return (
-            <Container fluid>
+        <div className='main'>
+            <div className='main1'>
+                <ChatroomsComponent chatrooms={chatrooms} setChat={setChat} />
+                <UsersComponent users={users} setChat={setChat} />
+            </div>
+            <div className='main2'>
+                <div className='main3'>
+                <MessagesComponent messages={messagesFromDB} />
+                <MessagesComponent messages={messages} />
+                </div>
+                <div>
+                    <input type='text' ref={messageRef}></input>
+                    <button  onClick={()=>{
+                        if(ispublic){
+                            sendMessage();
+                        }else{
+                            sendMessageP();
+                        }
+                    }}>Send</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+    );
+};
+
+export default withRouter(MainPage);
+
+
+
+
+
+
+
+
+
+
+
+{/* <Container fluid>
                 <Row>
                 <Col md={3}>
-            <ChatroomsComponent chatrooms={chatrooms}/>
-            <ChatroomsComponent chatrooms={users}/>
+            <ChatroomsComponent  chatrooms={chatrooms} setChat={setChat}/>
+            <UsersComponent users={users} setChat={setChat}/>
             </Col>
             <Col md={9}>
             <MessagesComponent messages={messagesFromDB}/>
             <MessagesComponent messages={messages}/>
             </Col>
             </Row>
-            </Container>
-            
-            
-            
-            
-            
-            
-        
-    );
-};
-
-export default MainPage;
+            </Container> */}
