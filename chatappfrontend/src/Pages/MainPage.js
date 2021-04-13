@@ -8,6 +8,9 @@ import Row from 'react-bootstrap/Row';
 import UsersComponent from './UsersComponent';
 import axios from 'axios';
 import './styles2.css'
+import useSound from 'use-sound';
+import boopSfx1 from '../Sounds/recieve.mp3';
+import boopSfx2 from '../Sounds/send.mp3';
 
 const MainPage = ({ socket }) => {
 
@@ -20,6 +23,8 @@ const MainPage = ({ socket }) => {
     const [messages, setMessages] = useState([]);
     const [messagesFromDB, setMessagesDB] = useState([]);
     const messageRef=React.useRef();
+    const [recieve] = useSound(boopSfx1);
+    const [send] = useSound(boopSfx2);
 
     const setChat = (currentChat, ispublic) => {
         setCurrentChat(currentChat);
@@ -66,16 +71,22 @@ const MainPage = ({ socket }) => {
         socket.once('newMessage', (message) => {
             console.log('event');
             if(message.userId==localStorage.getItem('uid')){
-                // send();
+                send();
             }else{
-                // recieve();
+                recieve();
             }
-            console.log("inside new msg");
-            const newMessages = [...messages, message];
-            setMessages(newMessages);
+            console.log("inside new msg",message);
+            if((ispublic && message.chatroom==currentChat) || (ispublic==false && (message.receiver==localStorage.getItem('uid') || message.userId==localStorage.getItem('uid')))){
+
+                const newMessages = [...messages, message];
+
+                setMessages(newMessages);
+            }
             // var element = document.getElementById("messages");
             // element.scrollTop = element.scrollHeight;
         })
+
+        return function cleanup() {socket.off('newMessage')};
     })
 
     const getMessagesFromDBP = () => {
@@ -181,6 +192,7 @@ const MainPage = ({ socket }) => {
         } if (ispublic == false) {
             getMessagesFromDBP();
         }
+        setMessages([]);
     }, [currentChat])
 
 

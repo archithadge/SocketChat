@@ -8,9 +8,9 @@ import './styles2.css'
 const ChatroomsComponent = (props) => {
     return (
         <div className='main3'>
-            {props.chatrooms.map(chatroom => (
+            {props.chatrooms.map((chatroom,index) => (
                 
-                    <ChatItem title={chatroom.name} onClick={()=>{props.setChat(chatroom._id,true)}}/>
+                    <ChatItem key={chatroom._id} title={chatroom.name} onClick={()=>{props.setChat(chatroom._id,true)}}/>
                 
             ))}
         </div>

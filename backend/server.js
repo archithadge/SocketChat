@@ -81,7 +81,7 @@ io.on('connection',  (socket) => {
 
     socket.on('chatroomMessage',async ({chatroomId,message})=>{
         
-        console.log(chatroomId,message);
+        console.log(chatroomId.toString(),message);
         console.log(socket.rooms)
         const user=await User.findOne({_id:socket.UID});
         const msg=new ChatroomMessage({
@@ -93,6 +93,7 @@ io.on('connection',  (socket) => {
             message:message,
             name:user.name,
             userId:user._id,
+            chatroom:chatroomId
         })
         await msg.save();
     })
@@ -110,6 +111,7 @@ io.on('connection',  (socket) => {
             message:message,
             name:user.name,
             userId:user._id,
+            receiver:receiverId
         })
         await msg.save();
     })
