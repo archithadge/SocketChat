@@ -14,6 +14,9 @@ const chatroomMessageSchema=new mongo.Schema({
     message:{
         type:String,
         required:"Message is required"
+    },
+    name:{
+        type:String
     }
 });
 

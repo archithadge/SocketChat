@@ -87,7 +87,8 @@ io.on('connection',  (socket) => {
         const msg=new ChatroomMessage({
             chatroom:chatroomId,
             user:socket.UID,
-            message:message
+            message:message,
+            name:user.name
         })
         io.to(chatroomId).emit('newMessage',{
             message:message,
@@ -103,6 +104,7 @@ io.on('connection',  (socket) => {
         const user=await User.findOne({_id:socket.UID});
         const msg=new PersonalMessage({
             sender:socket.UID,
+            name:user.name,
             receiver:receiverId,
             chatroom:chatroom,
             message:message

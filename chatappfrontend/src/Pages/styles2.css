@@ -1,6 +1,8 @@
 .main{
     display: flex;
     flex-direction: row;
+    height: 100%;
+    /* margin: 30px; */
 }
 
 .main1{
@@ -17,6 +19,17 @@
 }
 
 .main3{
+    overflow-y: scroll;
+    /* height: 250px; */
+    
+}
+
+.label{
+    text-align: center;
+    background-color: aqua;
+}
+
+.main4{
     overflow: scroll;
     height: 550px;
 }

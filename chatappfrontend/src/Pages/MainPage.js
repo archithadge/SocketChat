@@ -12,7 +12,8 @@ import useSound from 'use-sound';
 import boopSfx1 from '../Sounds/recieve.mp3';
 import boopSfx2 from '../Sounds/send.mp3';
 
-const MainPage = ({ socket }) => {
+
+const MainPage = ({ socket,history }) => {
 
 
 
@@ -25,6 +26,8 @@ const MainPage = ({ socket }) => {
     const messageRef=React.useRef();
     const [recieve] = useSound(boopSfx1);
     const [send] = useSound(boopSfx2);
+
+    
 
     const setChat = (currentChat, ispublic) => {
         setCurrentChat(currentChat);
@@ -48,6 +51,14 @@ const MainPage = ({ socket }) => {
                 message: messageRef.current.value
             })
         }
+    }
+
+    const logout = () => {
+        localStorage.removeItem('Token');
+        localStorage.removeItem('uid');
+        socket.off();
+        socket.disconnect();
+        history.push('/login');
     }
 
     const sendMessageP = () => {
@@ -198,12 +209,15 @@ const MainPage = ({ socket }) => {
 
     return (
         <div className='main'>
+            
             <div className='main1'>
+            <div className='label'>Public Chatrooms</div>
                 <ChatroomsComponent chatrooms={chatrooms} setChat={setChat} />
+                <div className='label'>Personal Chats</div>
                 <UsersComponent users={users} setChat={setChat} />
             </div>
             <div className='main2'>
-                <div className='main3'>
+                <div className='main4'>
                 <MessagesComponent messages={messagesFromDB} />
                 <MessagesComponent messages={messages} />
                 </div>
@@ -218,6 +232,7 @@ const MainPage = ({ socket }) => {
                     }}>Send</button>
                 </div>
             </div>
+            <button onClick={logout}>Logout</button>
         </div>
 
 
