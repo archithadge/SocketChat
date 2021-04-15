@@ -1,5 +1,5 @@
 const mongo=require('mongoose');
-
+//Model for User
 const userSchema=new mongo.Schema({
     name:{
         type:String,

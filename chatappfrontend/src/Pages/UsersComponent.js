@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 
 const UsersComponent = (props) => {
     return (
-        <div className='main3'>
+        <div className='chatrooms'>
             {props.users.map((user,index) => (
                 
-                    <ChatItem key={user._id} title={user.name} onClick={()=>{props.setChat(user._id,false)}}/>
+                    <ChatItem key={user._id} title={user.name} onClick={()=>{props.setChat(user._id,false,user.name)}}/>
             
             ))}
         </div>

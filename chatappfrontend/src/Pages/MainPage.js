@@ -11,28 +11,33 @@ import './styles2.css'
 import useSound from 'use-sound';
 import boopSfx1 from '../Sounds/recieve.mp3';
 import boopSfx2 from '../Sounds/send.mp3';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 
-const MainPage = ({ socket,history }) => {
+const MainPage = ({ socket, history }) => {
 
 
 
     const [ispublic, setPublic] = useState(null);
     const [currentChat, setCurrentChat] = useState(null);
+    const [currentChatName, setCurrentChatName] = useState(null);
     const [chatrooms, setChatrooms] = useState([]);
     const [users, setUsers] = useState([]);
     const [messages, setMessages] = useState([]);
     const [messagesFromDB, setMessagesDB] = useState([]);
-    const messageRef=React.useRef();
+    const messageRef = React.useRef();
     const [recieve] = useSound(boopSfx1);
     const [send] = useSound(boopSfx2);
 
-    
 
-    const setChat = (currentChat, ispublic) => {
+
+    const setChat = (currentChat, ispublic, currentChatName) => {
         setCurrentChat(currentChat);
         setPublic(ispublic);
+        setCurrentChatName(currentChatName);
     }
+
+
 
     const generateId = (id1, id2) => {
         var elements = [id1, id2];
@@ -47,7 +52,7 @@ const MainPage = ({ socket,history }) => {
         if (socket) {
             console.log('Socket exists');
             socket.emit('chatroomMessage', {
-                chatroomId:currentChat,
+                chatroomId: currentChat,
                 message: messageRef.current.value
             })
         }
@@ -67,8 +72,8 @@ const MainPage = ({ socket,history }) => {
         if (socket) {
             console.log('Socket exists');
             socket.emit('personalMessage', {
-                receiverId:currentChat,
-                chatroom:generateId(localStorage.getItem('uid'),currentChat),
+                receiverId: currentChat,
+                chatroom: generateId(localStorage.getItem('uid'), currentChat),
                 message: messageRef.current.value
             })
         }
@@ -76,18 +81,18 @@ const MainPage = ({ socket,history }) => {
 
     React.useEffect(() => {
         // console.log("Setting up",decodedToken);
-        if(!socket)return;
+        if (!socket) return;
         // console.log("UID socket",localStorage.getItem('uid'))
         // getMessagesFromDB();
         socket.once('newMessage', (message) => {
             console.log('event');
-            if(message.userId==localStorage.getItem('uid')){
+            if (message.userId == localStorage.getItem('uid')) {
                 send();
-            }else{
+            } else {
                 recieve();
             }
-            console.log("inside new msg",message);
-            if((ispublic && message.chatroom==currentChat) || (ispublic==false && (message.receiver==localStorage.getItem('uid') || message.userId==localStorage.getItem('uid')))){
+            console.log("inside new msg", message);
+            if ((ispublic && message.chatroom == currentChat) || (ispublic == false && (message.receiver == localStorage.getItem('uid') || message.userId == localStorage.getItem('uid')))) {
 
                 const newMessages = [...messages, message];
 
@@ -97,7 +102,7 @@ const MainPage = ({ socket,history }) => {
             // element.scrollTop = element.scrollHeight;
         })
 
-        return function cleanup() {socket.off('newMessage')};
+        return function cleanup() { socket.off('newMessage') };
     })
 
     const getMessagesFromDBP = () => {
@@ -209,24 +214,26 @@ const MainPage = ({ socket,history }) => {
 
     return (
         <div className='main'>
-            
-            <div className='main1'>
-            <div className='label'>Public Chatrooms</div>
+
+            <div className='sidebar'>
+                <div className='label'>Public Chatrooms</div>
+
                 <ChatroomsComponent chatrooms={chatrooms} setChat={setChat} />
                 <div className='label'>Personal Chats</div>
                 <UsersComponent users={users} setChat={setChat} />
             </div>
-            <div className='main2'>
-                <div className='main4'>
-                <MessagesComponent messages={messagesFromDB} />
-                <MessagesComponent messages={messages} />
+            <div className='messagesection'>
+                <div>{currentChatName}</div>
+                <div className='messages'>
+                    <MessagesComponent messages={messagesFromDB} />
+                    <MessagesComponent messages={messages} />
                 </div>
                 <div>
                     <input type='text' ref={messageRef}></input>
-                    <button  onClick={()=>{
-                        if(ispublic){
+                    <button onClick={() => {
+                        if (ispublic) {
                             sendMessage();
-                        }else{
+                        } else {
                             sendMessageP();
                         }
                     }}>Send</button>

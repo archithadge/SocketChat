@@ -1,5 +1,6 @@
 const mongo=require('mongoose');
 
+//Model for private message between 2 users.
 const personalMessageSchema=new mongo.Schema({
     
     sender:{

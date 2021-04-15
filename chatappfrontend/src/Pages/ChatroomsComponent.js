@@ -7,10 +7,10 @@ import './styles2.css'
 
 const ChatroomsComponent = (props) => {
     return (
-        <div className='main3'>
+        <div className='chatrooms'>
             {props.chatrooms.map((chatroom,index) => (
                 
-                    <ChatItem key={chatroom._id} title={chatroom.name} onClick={()=>{props.setChat(chatroom._id,true)}}/>
+                    <ChatItem key={chatroom._id} title={chatroom.name} onClick={()=>{props.setChat(chatroom._id,true,chatroom.name)}}/>
                 
             ))}
         </div>

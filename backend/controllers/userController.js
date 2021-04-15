@@ -3,6 +3,7 @@ const User=mongoose.model("User");
 const sha256=require('js-sha256');
 const jwt=require('jwt-then');
 
+//Register new users
 exports.register=async (req,res)=>{
     const name=req.body.name;
     const email=req.body.email;
@@ -17,6 +18,7 @@ exports.register=async (req,res)=>{
 
 };
 
+//Login new user
 exports.login=async (req,res)=>{
     const email=req.body.email;
     const password=req.body.password;
@@ -38,6 +40,7 @@ exports.login=async (req,res)=>{
 
 }
 
+//Get all users
 exports.getAllUsers=async (req,res)=>{
     const users=await User.find({}).select(['_id','name'])
     res.json(users);

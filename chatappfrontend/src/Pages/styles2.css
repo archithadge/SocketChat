@@ -5,22 +5,23 @@
     /* margin: 30px; */
 }
 
-.main1{
+.sidebar{
     width:25%;
-    overflow: scroll;
+    overflow-y: scroll;
     height: 600px;
 }
 
-.main2{
+.messagesection{
     display: flex;
     flex-direction: column;
     width:75%;
     
 }
 
-.main3{
+.chatrooms{
     overflow-y: scroll;
     /* height: 250px; */
+    overflow-x: hidden;
     
 }
 
@@ -29,8 +30,8 @@
     background-color: aqua;
 }
 
-.main4{
-    overflow: scroll;
+.messages{
+    overflow-y: scroll;
     height: 550px;
 }
 

@@ -1,3 +1,4 @@
+// Middleware for authorization of each GET/POST request
 const jwt=require('jwt-then');
 module.exports=async (req,res,next)=>{
     try {
