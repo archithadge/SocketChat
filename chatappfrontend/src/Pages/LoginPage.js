@@ -35,7 +35,7 @@ class LoginPage extends Component {
                 localStorage.setItem("Token",response.data.token);
                 localStorage.setItem("uid",response.data.uid);
                 this.props.setupSocket();
-                this.props.history.push('/main');
+                this.props.history.push('/main2');
             }).catch((err)=>{
                 console.log(err);
             })

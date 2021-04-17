@@ -9,6 +9,7 @@ import ChatroomPage from './Pages/ChatroomPage';
 import PersonalMessagePage from './Pages/PersonalMessagePage';
 import MainPage from './Pages/MainPage';
 import io from 'socket.io-client';
+import ResponsiveDrawer from './Pages/ResponsiveMainPage';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
   return <BrowserRouter>
   <Switch>
     <Route path="/" component={IndexPage} exact></Route>
+    <Route path="/main2" render={()=><ResponsiveDrawer socket={socket} ></ResponsiveDrawer>}></Route>
     <Route path="/login" render={()=><LoginPage setupSocket={setupSocket}></LoginPage>} exact></Route>
     <Route path="/register" component={RegisterPage}exact></Route>
     <Route path="/dashboard" render={()=><DashboardPage socket={socket} ></DashboardPage>} exact></Route>

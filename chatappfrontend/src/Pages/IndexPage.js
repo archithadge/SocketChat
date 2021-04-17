@@ -7,7 +7,7 @@ const IndexPage = (props) =>{
         if(!token){
             props.history.push('/login');
         }else{
-            props.history.push('/dashboard')
+            props.history.push('/main2')
         }
     },[0])
     return <div>Index Page</div>

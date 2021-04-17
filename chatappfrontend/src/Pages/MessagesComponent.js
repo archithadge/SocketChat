@@ -1,11 +1,9 @@
 import React from 'react';
-import Col from 'react-bootstrap/Col';
 import { MessageBox } from 'react-chat-elements'
-import { Link } from 'react-router-dom';
 
 
-const ChatroomsComponent = (props) => {
-    console.log(localStorage.getItem('uid'));
+
+const MessagesComponent = (props) => {
     return (
         <div>
             {
@@ -17,4 +15,4 @@ const ChatroomsComponent = (props) => {
     );
 };
 
-export default ChatroomsComponent;
+export default MessagesComponent;
