@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const jwt = require("jwt-then");
 
 //MongoDB Connection
-mongoose.connect(process.env.DATABASE, {
+mongoose.connect(process.env.ATLAS, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

@@ -193,6 +193,7 @@ function ResponsiveDrawer({ socket, history }, props) {
         },
       })
       .then((response) => {
+        console.log(response.data);
         setUsers(response.data);
       })
       .catch((err) => {
@@ -323,7 +324,7 @@ function ResponsiveDrawer({ socket, history }, props) {
         <div className={classes.toolbar} />
         <div
           style={{
-            backgroundColor: "blue",
+            backgroundColor: "#e3ffc4",
             overflowY: "scroll",
             height: "84vh",
           }}
@@ -333,7 +334,7 @@ function ResponsiveDrawer({ socket, history }, props) {
           <MessagesComponent messages={messages} />
         </div>
 
-        <input style={{ height: "5%", width: "84%" }} ref={messageRef}></input>
+        <input style={{ height: "4vh", width: "84%" }} ref={messageRef}></input>
         <button
           style={{ width: "16%" }}
           onClick={() => {
