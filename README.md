@@ -1,6 +1,6 @@
 # SocketChat
 ### Introduction 
-This is a **development** version of the chatapp. 
+This is a **development** version of a realtime chatapp. 
 
 This chatapp supports one-to-one as well as group chats. It's built with **MERN Stack** and **SocketIO**. It enables registration, authentication of users, creating chatrooms, send and receive group as well as personal messages. 
 
