@@ -127,11 +127,10 @@ function ResponsiveDrawer({ socket, history }, props) {
       } else {
         recieve();
       }
+      console.log(message,localStorage.getItem("uid"))
       if (
-        (ispublic && message.chatroom == currentChat) ||
-        (ispublic == false &&
-          (message.receiver == localStorage.getItem("uid") ||
-            message.userId == localStorage.getItem("uid")))
+        (ispublic && message.chatroom == currentChat) || (ispublic==false && (currentChat==message.userId || message.userId==localStorage.getItem('uid')))
+        
       ) {
         const newMessages = [...messages, message];
 
