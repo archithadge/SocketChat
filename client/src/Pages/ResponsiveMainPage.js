@@ -14,11 +14,11 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import useSound from "use-sound";
 import boopSfx1 from "../Sounds/recieve.mp3";
 import boopSfx2 from "../Sounds/send.mp3";
-import UsersComponent from "./UsersComponent";
+import UsersComponent from "./Components/UsersComponent";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import ChatroomsComponent from "./ChatroomsComponent";
-import MessagesComponent from "./MessagesComponent";
+import ChatroomsComponent from "./Components/ChatroomsComponent";
+import MessagesComponent from "./Components/MessagesComponent";
 
 
 const drawerWidth = 286;

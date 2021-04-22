@@ -1,6 +1,6 @@
 import React from "react";
 import { ChatItem } from "react-chat-elements";
-import "./styles2.css";
+import "../styles/styles2.css";
 
 const ChatroomsComponent = (props) => {
   return (

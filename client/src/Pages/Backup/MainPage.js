@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { withRouter } from 'react-router-dom';
 import ChatroomsComponent from './ChatroomsComponent';
-import MessagesComponent from './MessagesComponent';
+import MessagesComponent from '../MessagesComponent';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import UsersComponent from './UsersComponent';
+import UsersComponent from '../UsersComponent';
 import axios from 'axios';
 import './styles2.css'
 import useSound from 'use-sound';

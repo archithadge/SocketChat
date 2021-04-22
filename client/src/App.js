@@ -3,11 +3,7 @@ import {BrowserRouter,Switch,Route} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
-import DashboardPage from './Pages/DashboardPage';
 import IndexPage from './Pages/IndexPage';
-import ChatroomPage from './Pages/ChatroomPage';
-import PersonalMessagePage from './Pages/PersonalMessagePage';
-import MainPage from './Pages/MainPage';
 import io from 'socket.io-client';
 import ResponsiveDrawer from './Pages/ResponsiveMainPage';
 
@@ -49,10 +45,10 @@ function App() {
     <Route path="/main2" render={()=><ResponsiveDrawer socket={socket} ></ResponsiveDrawer>}></Route>
     <Route path="/login" render={()=><LoginPage setupSocket={setupSocket}></LoginPage>} exact></Route>
     <Route path="/register" component={RegisterPage}exact></Route>
-    <Route path="/dashboard" render={()=><DashboardPage socket={socket} ></DashboardPage>} exact></Route>
-    <Route path="/main" render={()=><MainPage socket={socket} ></MainPage>} exact></Route>
-    <Route path="/chatroom/:id" render={()=><ChatroomPage socket={socket} demo={demo}></ChatroomPage>} exact></Route>
-    <Route path="/personal/:id" render={()=><PersonalMessagePage socket={socket} ></PersonalMessagePage>} exact></Route>
+    {/* <Route path="/dashboard" render={()=><DashboardPage socket={socket} ></DashboardPage>} exact></Route> */}
+    {/* <Route path="/main" render={()=><MainPage socket={socket} ></MainPage>} exact></Route> */}
+    {/* <Route path="/chatroom/:id" render={()=><ChatroomPage socket={socket} demo={demo}></ChatroomPage>} exact></Route> */}
+    {/* <Route path="/personal/:id" render={()=><PersonalMessagePage socket={socket} ></PersonalMessagePage>} exact></Route> */}
   </Switch>
   </BrowserRouter>
 }

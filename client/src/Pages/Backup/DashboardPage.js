@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import  Button  from 'react-bootstrap/Button';
 import  Spinner  from 'react-bootstrap/Spinner';
 import ChatroomsComponent from './ChatroomsComponent';
-import UsersComponent from './UsersComponent';
+import UsersComponent from '../UsersComponent';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 
