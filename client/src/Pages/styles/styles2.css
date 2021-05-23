@@ -1,0 +1,42 @@
+.main{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    /* margin: 30px; */
+}
+
+.sidebar{
+    width:25%;
+    overflow-y: scroll;
+    height: 600px;
+}
+
+.messagesection{
+    display: flex;
+    flex-direction: column;
+    width:75%;
+    
+}
+
+.chatrooms{
+    overflow-y: scroll;
+    /* height: 250px; */
+    overflow-x: hidden;
+    
+}
+
+.label{
+    text-align: center;
+    background-color: aqua;
+}
+
+.messages{
+    overflow-y: scroll;
+    height: 550px;
+}
+
+input{
+    width: 60%;
+    height: 100%;
+}
+
