@@ -5,15 +5,17 @@ const jwt=require('jwt-then');
 
 //Register new users
 exports.register=async (req,res)=>{
-    const name=req.body.name;
+    const firstname=req.body.firstname;
+    const lastname=req.body.lastname;
     const email=req.body.email;
+    const bio=req.body.bio;
     const password=req.body.password;
 
-    const user=new User({name,email,password:sha256(password+process.env.SALT)});
+    const user=new User({firstname,lastname,email,bio,password:sha256(password+process.env.SALT)});
     await user.save();
 
     res.json({
-        message:"User "+name+" registered successfully..!"
+        message:"User "+firstname+" "+lastname+" registered successfully..!"
     });
 
 };

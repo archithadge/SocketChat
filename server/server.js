@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const jwt = require("jwt-then");
 
 //MongoDB Connection
-mongoose.connect(process.env.ATLAS, {
+mongoose.connect(process.env.DATABASE, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -40,6 +40,7 @@ const io = require("socket.io")(server, {
 
 //SocketIO middleware to verify each event from client
 io.use(async (socket, next) => {
+  console.log("socket")
   try {
     const token = socket.handshake.query.token;
     const payload = await jwt.verify(token, process.env.SECRET);

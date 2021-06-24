@@ -4,6 +4,10 @@ const chatroomSchema=new mongo.Schema({
     name:{
         type:String,
         required:"Name is required"
+    },
+    members:{
+        type:[mongo.Schema.Types.ObjectId],
+        ref:"User"
     }
 },{
     timestamps:true
