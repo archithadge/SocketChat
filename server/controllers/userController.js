@@ -3,6 +3,7 @@ const User=mongoose.model("User");
 const sha256=require('js-sha256');
 const jwt=require('jwt-then');
 
+
 //Register new users
 exports.register=async (req,res)=>{
     const firstname=req.body.firstname;
@@ -10,6 +11,7 @@ exports.register=async (req,res)=>{
     const email=req.body.email;
     const bio=req.body.bio;
     const password=req.body.password;
+    const profilephoto=req.body.profilephoto;
 
     const user=new User({firstname,lastname,email,bio,password:sha256(password+process.env.SALT)});
     await user.save();
