@@ -14,8 +14,11 @@ exports.createChatroom=async (req,res)=>{
         creator:req.payload.id,
         userData:{}
     });
-    await chatroom.save((err,data)=>{
-       
+    chatroom.userData.set(req.payload.id,'accepted');
+    await chatroom.save(async (err,data)=>{
+       const user=await User.findOne({_id:req.payload.id});
+       user.chatrooms.push(data._id);
+       user.save();
     });
     
 
@@ -61,8 +64,10 @@ exports.addmemberrequest=async (req,res)=>{
     chatroom.save();
     member.save();
 
-    res.send({
+    res.json({
         message:'requested'
     })
 }
+
+
 

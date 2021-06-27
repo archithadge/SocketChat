@@ -85,3 +85,45 @@ exports.acceptrequest=async (req,res)=>{
         message:"Accepted"
     })
 }
+
+exports.rejectrequest=async (req,res)=>{
+    const chatroomID=req.body.chatroomID;
+    const userID=req.payload.id;
+
+    const user=await User.findOne({_id:userID});
+    const chatroom=await Chatroom.findOne({_id:chatroomID});
+
+    console.log(user,chatroom);
+    chatroom.userData.set(userID,undefined);
+    user.chatroomrequests.pop(chatroomID);
+    console.log(user,chatroom);
+
+    chatroom.save();
+    user.save();
+
+    res.json({
+        message:"rejected"
+    })
+
+}
+
+exports.leaveroom=async (req,res)=>{
+    const chatroomID=req.body.chatroomID;
+    const userID=req.payload.id;
+
+    const user=await User.findOne({_id:userID});
+    const chatroom=await Chatroom.findOne({_id:chatroomID});
+
+    console.log(user,chatroom);
+    chatroom.userData.set(userID,undefined);
+    user.chatrooms.pop(chatroomID);
+    console.log(user,chatroom);
+
+    chatroom.save();
+    user.save();
+
+    res.json({
+        message:"Left room"
+    })
+
+}
