@@ -14,7 +14,10 @@ exports.createChatroom=async (req,res)=>{
         creator:req.payload.id,
         userData:{}
     });
-    await chatroom.save();
+    await chatroom.save((err,data)=>{
+       
+    });
+    
 
     res.json({
         message:"Chatroom created successfully",

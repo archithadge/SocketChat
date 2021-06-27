@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model("User");
 const sha256 = require('js-sha256');
 const jwt = require('jwt-then');
+const Chatroom = require('../models/Chatroom');
 
 
 //Register new users
@@ -42,7 +43,7 @@ exports.login = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    console.log(email,password);
+    console.log(email,sha256(password + process.env.SALT));
     const user = await User.findOne({
         email:email,
         password: sha256(password + process.env.SALT)
@@ -64,4 +65,23 @@ exports.login = async (req, res) => {
 exports.getAllUsers = async (req, res) => {
     const users = await User.find({}).select(['_id', 'name'])
     res.json(users);
+}
+
+exports.acceptrequest=async (req,res)=>{
+    const chatroomID=req.body.chatroomID;
+    const userID=req.payload.id;
+
+    const chatroom=await Chatroom.findOne({_id:chatroomID});
+    const user=await User.findOne({_id:userID});
+    // console.log(user,chatroom);
+    user.chatroomrequests.pull(chatroomID);
+    user.chatrooms.push(chatroomID);
+    chatroom.userData.set(userID,'accepted');
+    // console.log(user,chatroom);
+    await user.save();
+    await chatroom.save();
+
+    res.json({
+        message:"Accepted"
+    })
 }
