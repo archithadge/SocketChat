@@ -6,6 +6,7 @@ const auth=require('../middlewares/auth')
 
 router.get('/',auth,catchErrors(chatroomController.getAllChatrooms));
 router.post('/',auth,catchErrors(chatroomController.createChatroom));
+router.post('/addmemberrequest',auth,catchErrors(chatroomController.addmemberrequest));
 router.post('/messages',auth,catchErrors(chatroomController.getChatroomMessages));
 
 

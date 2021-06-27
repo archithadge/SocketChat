@@ -1,14 +1,18 @@
 const mongoose=require('mongoose');
 const Chatroom=mongoose.model('Chatroom');
+const User=mongoose.model('User');
 const ChatroomMessage=mongoose.model('ChatroomMessage');
 
 //To create a new public chatrooms
 exports.createChatroom=async (req,res)=>{
     const {name}=req.body;
     const chatroomExists=await Chatroom.findOne({name});
+    console.log("payload ",req.payload);
     if(chatroomExists) throw "Already exists..!";
     const chatroom=new Chatroom({
         name,
+        creator:req.payload.id,
+        userData:{}
     });
     await chatroom.save();
 
@@ -31,3 +35,31 @@ exports.getChatroomMessages=async (req,res)=>{
     const msgs=await ChatroomMessage.find({chatroom:chatroomID});
     res.json(msgs);
 }
+
+exports.addmemberrequest=async (req,res)=>{
+    const creatorID=req.payload.id;
+    const chatroomID=req.body.chatroomID;
+    const memberID=req.body.memberID;
+
+    // console.log(chatroomID);
+    const chatroom=await Chatroom.findOne({_id:chatroomID});
+    if(!chatroom)throw "Chatroom doesn't exist";
+
+    const map=chatroom.userData;
+    // console.log(map);
+
+    if(chatroom.userData.get(memberID))throw "Already sent..!";
+    chatroom.userData.set(memberID,'requested');
+
+    const member=await User.findOne({_id:memberID});
+    member.chatroomrequests.push(chatroomID);
+    console.log(member);
+
+    chatroom.save();
+    member.save();
+
+    res.send({
+        message:'requested'
+    })
+}
+

@@ -21,5 +21,8 @@ var upload=multer({
 router.post('/login',catchErrors(userController.login));
 router.post('/register',upload,catchErrors(userController.register));
 router.get('/users',auth,catchErrors(userController.getAllUsers));
+router.get('/acceptrequest',auth,catchErrors(userController.acceptrequest));
+router.get('/rejectrequest',auth,catchErrors(userController.rejectrequest));
+router.get('/leaveroom',auth,catchErrors(userController.leaveroom));
 
 module.exports=router;

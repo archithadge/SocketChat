@@ -21,6 +21,10 @@ exports.register = async (req, res) => {
         password: sha256(password + process.env.SALT),
         profilephoto: 'http://localhost:8000/profilepics/' + req.file.filename
     });
+
+    var check=await User.find({email});
+    console.log(check);
+    if(check.length!=0)throw 'User with this email already exists..!Try with different email.';
     await user.save((err, data) => {
         console.log(data._id);
     });
@@ -38,8 +42,9 @@ exports.login = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
+    console.log(email,password);
     const user = await User.findOne({
-        email,
+        email:email,
         password: sha256(password + process.env.SALT)
     });
 

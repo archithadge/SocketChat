@@ -5,9 +5,13 @@ const chatroomSchema=new mongo.Schema({
         type:String,
         required:"Name is required"
     },
-    members:{
-        type:[mongo.Schema.Types.ObjectId],
-        ref:"User"
+    creator:{
+        type:mongo.Schema.Types.ObjectId,
+        ref:"User",
+    },
+    userData:{
+        type:Map,
+        of:String
     }
 },{
     timestamps:true
