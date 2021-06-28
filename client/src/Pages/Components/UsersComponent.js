@@ -8,9 +8,10 @@ const UsersComponent = (props) => {
       {props.users.map((user, index) => (
         <ChatItem
           key={user._id}
-          title={user.name}
+          avatar={user.profilephoto}
+          title={user.firstname+" "+user.lastname}
           onClick={() => {
-            props.setChat(user._id, false, user.name);
+            props.setChat(user._id, false, user.firstname+" "+user.lastname);
           }}
         />
       ))}

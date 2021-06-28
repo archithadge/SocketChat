@@ -65,7 +65,7 @@ exports.login = async (req, res) => {
 
 //Get all users
 exports.getAllUsers = async (req, res) => {
-    const users = await User.find({}).select(['_id', 'name'])
+    const users = await User.find({}).select(['_id', 'firstname','lastname','profilephoto'])
     res.json(users);
 }
 
