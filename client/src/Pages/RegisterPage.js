@@ -6,22 +6,50 @@ import Button from "react-bootstrap/Button";
 
 class RegisterPage extends Component {
 
-
+    state = {
+ 
+        // Initially, no file is selected
+        selectedFile: null
+      };
+      
+      // On file select (from the pop up)
+      onFileChange = event => {
+      
+        // Update the state
+        this.setState({ selectedFile: event.target.files[0] });
+      
+      };
 
     render() {
-        const nameRef = React.createRef();
+        const firstnameRef = React.createRef();
+        const lastnameRef = React.createRef();
+        const bioRef = React.createRef();
         const emailRef = React.createRef();
         const passwordRef = React.createRef();
+        const profilephotoRef=React.createRef();
 
         var registerUser = () => {
-            const name = nameRef.current.value;
+            const firstname = firstnameRef.current.value;
+            const lastname = lastnameRef.current.value;
+            const bio = bioRef.current.value;
             const email = emailRef.current.value;
             const password = passwordRef.current.value;
+            const profilephoto = profilephotoRef;
 
-            axios.post("http://localhost:8000/user/register", {
-                name,
-                email,
-                password,
+            console.log(this.state.selectedFile);
+
+            let formData = new FormData();
+            formData.append('firstname',firstname);
+            formData.append('lastname',lastname);
+            formData.append('email',email);
+            formData.append('bio',bio);
+            formData.append('password',password);
+            formData.append('profilephoto',this.state.selectedFile);
+
+            axios.post("http://localhost:8000/user/register", formData,{
+                headers: {
+                    "Content-type": "multipart/form-data"
+                  }
             }).then((response) => {
                 console.log(response.data);
                 this.props.history.push('/login');
@@ -36,12 +64,24 @@ class RegisterPage extends Component {
                 <div id='main-login'>
                     <h3>Registration Page</h3>
                     <Form.Group>
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" name="name" id="name" ref={nameRef} />
+                        <Form.Label>First name</Form.Label>
+                        <Form.Control type="text" name="firstname" id="name" ref={firstnameRef} />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="text" name="email" id="email" ref={emailRef} />
+                        <Form.Label>Last Name</Form.Label>
+                        <Form.Control type="text" name="lastname" id="name" ref={lastnameRef} />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="text" name="email" id="name" ref={emailRef} />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Bio</Form.Label>
+                        <Form.Control type="text" name="bio" id="email" ref={bioRef} />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Profile pic</Form.Label>
+                        <Form.Control type="file" name="profilephoto" id="email" onChange={this.onFileChange} ref={profilephotoRef} />
                     </Form.Group>
 
                     <Form.Group>

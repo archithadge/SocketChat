@@ -7,13 +7,15 @@ const Chatroom = require('../models/Chatroom');
 
 //Register new users
 exports.register = async (req, res) => {
+
+    console.log("body",req.body)
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const email = req.body.email;
     const bio = req.body.bio;
     const password = req.body.password;
     const profilephoto = req.body.profilephoto;
-
+    
     const user = new User({
         firstname,
         lastname,
@@ -22,7 +24,7 @@ exports.register = async (req, res) => {
         password: sha256(password + process.env.SALT),
         profilephoto: 'http://localhost:8000/profilepics/' + req.file.filename
     });
-
+    console.log("here1")
     var check=await User.find({email});
     console.log(check);
     if(check.length!=0)throw 'User with this email already exists..!Try with different email.';
