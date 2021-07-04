@@ -40,21 +40,19 @@ class LoginPage extends Component {
     return (
       <div id='main-login'>
         <h3>Login Page</h3>
-        <Form.Group>
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="text" name="email" id="email" ref={emailRef} />
-        </Form.Group>
+        
+          <input type="text" name="email" id="email" ref={emailRef} />
+        
 
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
+        
+          <input
             type="text"
             name="password"
             id="password"
             ref={passwordRef}
           />
-        </Form.Group>
-        <Button id='button-login' variant="primary" onClick={loginUser}>Login</Button>
+        
+        <button id='button-login' variant="primary" onClick={loginUser}>Login</button>
       </div>
     );
   }

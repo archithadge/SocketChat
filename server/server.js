@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const jwt = require("jwt-then");
+var siofu = require("socketio-file-upload");
 
 //MongoDB Connection
 mongoose.connect(process.env.DATABASE, {
@@ -26,6 +27,7 @@ const PersonalMessage = mongoose.model("PersonalMessage");
 
 //Importing the express app
 const app = require("./app");
+app.use(siofu.router);
 const server = app.listen(process.env.PORT, () => {
   console.log("Server started at port " + process.env.PORT);
 });
@@ -51,6 +53,14 @@ io.use(async (socket, next) => {
 
 io.on("connection", (socket) => {
   console.log(socket.id + " connected");
+
+  var uploader = new siofu();
+  uploader.dir = "public/chat_files";
+  uploader.listen(socket);
+
+  uploader.on("saved", function(event){
+    console.log(event.file.name+" uploaded successfully..!");
+});
 
   //Client disconnection event
   socket.on("disconnect", () => {

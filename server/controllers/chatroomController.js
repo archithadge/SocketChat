@@ -71,3 +71,16 @@ exports.addmemberrequest=async (req,res)=>{
 
 
 
+exports.getinfo=async (req,res)=>{
+    const id=req.payload.id;
+    const chatroomID=req.body.chatroomID;
+
+    const chatroom=await Chatroom.findOne({_id:chatroomID});
+
+    console.log(chatroom.userData);
+    res.json({
+        data:chatroom
+    })
+}
+
+

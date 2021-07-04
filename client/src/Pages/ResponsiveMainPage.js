@@ -19,6 +19,7 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 import ChatroomsComponent from "./Components/ChatroomsComponent";
 import MessagesComponent from "./Components/MessagesComponent";
+import SocketIOFileUpload from 'socketio-file-upload';
 
 
 const drawerWidth = 286;
@@ -73,6 +74,7 @@ function ResponsiveDrawer({ socket, history }, props) {
   const [recieve] = useSound(boopSfx1);
   const [send] = useSound(boopSfx2);
   const scrollRef = React.useRef(null);
+  var siofu = new SocketIOFileUpload(socket);
 
   const setChat = (currentChat, ispublic, currentChatName) => {
     setCurrentChat(currentChat);
@@ -217,6 +219,7 @@ function ResponsiveDrawer({ socket, history }, props) {
 
 
   React.useEffect(() => {
+    siofu.listenOnInput(document.getElementById("siofu_input"));
     getChatrooms();
     getUsers();
   }, []);
@@ -334,6 +337,8 @@ function ResponsiveDrawer({ socket, history }, props) {
         </div>
 
         <input style={{ height: "4vh", width: "84%" }} ref={messageRef}></input>
+        <label for="myfile">Select a file:</label>
+<input type="file" id="siofu_input" name="myfile"/>
         <button
           style={{ width: "16%" }}
           onClick={() => {
