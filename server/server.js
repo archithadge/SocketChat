@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
   uploader.listen(socket);
 
   uploader.on("saved", function(event){
-    console.log(event.file.name+" uploaded successfully..!");
+    console.log(event.file.name+" uploaded successfully..!",event.file.meta);
 });
 
   //Client disconnection event

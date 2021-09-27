@@ -1,0 +1,32 @@
+#bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#main{
+    position: absolute;
+    width: 100%;
+}
+
+.rpara{
+    display: inline-block;
+    width: 100%;
+    
+}
+.lpara{
+    display: inline-block;
+    width: 100%;
+    
+}
+.rpara p{
+    width: 50%;
+    float: right;
+    background-color: aliceblue;
+}
+
+.lpara p{
+    width: 50%;
+    float: left;
+    background-color: aliceblue;
+}
