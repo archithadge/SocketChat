@@ -256,10 +256,12 @@ function ResponsiveDrawer({ socket, history }, props) {
     <div>
       <div className={classes.toolbar} />
       <Divider />
+      Chatrooms
       <List>
         <ChatroomsComponent chatrooms={chatrooms} setChat={setChat} />
       </List>
       <Divider />
+      Personal Chats
       <List>
         <UsersComponent users={users} setChat={setChat} />
       </List>

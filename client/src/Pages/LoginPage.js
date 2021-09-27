@@ -40,11 +40,11 @@ class LoginPage extends Component {
     return (
       <div id='main-login'>
         <h3>Login Page</h3>
-        
+          <div>Email</div>
           <input type="text" name="email" id="email" ref={emailRef} />
         
 
-        
+          <div>Password</div>
           <input
             type="text"
             name="password"

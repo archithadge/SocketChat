@@ -8,6 +8,7 @@ const ChatroomsComponent = (props) => {
       {props.chatrooms.map((chatroom, index) => (
         <ChatItem
           key={chatroom._id}
+          avatar="https://picsum.photos/200"
           title={chatroom.name}
           onClick={() => {
             props.setChat(chatroom._id, true, chatroom.name);

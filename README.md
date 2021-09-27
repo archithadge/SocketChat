@@ -1,9 +1,21 @@
 # SocketChat
-### Introduction 
+## Introduction 
 This is a **development** version of a realtime chatapp. 
 
-This chatapp supports one-to-one as well as group chats. It's built with **MERN Stack** and **SocketIO**. It enables registration, authentication of users, creating chatrooms, send and receive group as well as personal messages. 
+This chatapp supports one-to-one as well as group chats. It's built with **MERN Stack** and **SocketIO**. It enables registration, authentication of users, creating chatrooms, send and receive group as well as personal messages.
 
+## Key Features
+<ol>
+  <li>Realtime personal/group messaging</li>
+  <li>JWT based authentication</li>
+  <li>Server-side caching using Redis</li>
+  <li>Add/Delete members in chatroom</li>
+  <li>File Sharing</li>
+  <li>Delete Messages</li>
+  <li>NLP based abuse detection/removal, ban/suspend users based on decision.</li>
+  </ol>
+
+## Installation (Development)
 To **install the client**, navigate to client and run
 
 ```

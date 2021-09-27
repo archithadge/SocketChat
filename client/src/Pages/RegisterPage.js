@@ -63,7 +63,23 @@ class RegisterPage extends Component {
             <div>
                 <div id='main-login'>
                     <h3>Registration Page</h3>
-                    <Form.Group>
+                    <div>First Name</div>
+                    <input type="text" name="firstname" id="name" ref={firstnameRef}/>
+                    <div>Last Name</div>
+                    <input type="text" name="lastname" id="name" ref={lastnameRef}/>
+                    <div>Email</div>
+                    <input type="text" name="email" id="name" ref={emailRef}/>
+                    <div>Bio</div>
+                    <input type="text" name="bio" id="email" ref={bioRef}/>
+                    <div>Profile Pic</div>
+                    <input type="file" name="profilephoto" id="email" onChange={this.onFileChange} ref={profilephotoRef}/>
+                    <div>Password</div>
+                    <input type="text"
+                            name="password"
+                            id="password"
+                            ref={passwordRef}/>
+                    <button id='button-login' variant="primary" onClick={registerUser}>Register</button>
+                    {/* <Form.Group>
                         <Form.Label>First name</Form.Label>
                         <Form.Control type="text" name="firstname" id="name" ref={firstnameRef} />
                     </Form.Group>
@@ -93,7 +109,7 @@ class RegisterPage extends Component {
                             ref={passwordRef}
                         />
                     </Form.Group>
-                    <Button id='button-login' variant="primary" onClick={registerUser}>Register</Button>
+                    <Button id='button-login' variant="primary" onClick={registerUser}>Register</Button> */}
                 </div>
             </div>
         );
