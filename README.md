@@ -3,6 +3,24 @@
 This is a **development** version of a realtime chatapp. 
 
 This chatapp supports one-to-one as well as group chats. It's built with **MERN Stack** and **SocketIO**. It enables registration, authentication of users, creating chatrooms, send and receive group as well as personal messages.
+<p>
+  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<img src="Assets/1.png"/>
+  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+  <img src="Assets/2.png"/>
+</p>
+<p>
+  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<img src="Assets/3.png"/>
+  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+  <img src="Assets/4.png"/>
+</p>
+
+<p>
+<img src="Assets/5.png"/>
+</p>
+
+
 
 ## Key Features
 <ol>
@@ -13,6 +31,7 @@ This chatapp supports one-to-one as well as group chats. It's built with **MERN 
   <li>File Sharing</li>
   <li>Delete Messages</li>
   <li>NLP based abuse detection/removal, ban/suspend users based on decision.</li>
+  <li>Responsive UI</li>
   </ol>
 
 ## Installation (Development)
